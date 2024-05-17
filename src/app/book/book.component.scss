@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+.main-photo {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  padding: 5px;
+}
+
+.main-font {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.wrapper {
+  border-radius: 21px;
+  -webkit-box-shadow: 5px 13px 24px 10px rgba(165, 165, 165, 1);
+  -moz-box-shadow: 5px 13px 24px 10px rgba(165, 165, 165, 1);
+  box-shadow: 5px 13px 24px 10px rgba(165, 165, 165, 1);
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.active {
+  background: #a10808 !important;
+}
+
+.custom-file-upload {
+  border: 2px solid #ccc;
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.radius-10 {
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  padding: 3px 15px 3px 15px;
+}
+
+.select-input {
+  background: #696969;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.select-input:hover {
+  background: #a10808;
+}
+
+.custom-file-upload::after {
+  content: ' ';
+}
