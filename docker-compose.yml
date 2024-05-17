@@ -1,0 +1,9 @@
+services:
+  guest-service:
+    image: guest-service:latest
+    volumes:
+      - '/mnt/c/cert.pem:/cert.pem'
+      - '/mnt/c/cert.key.pem:/cert.key.pem'
+    ports:
+      - 80:80
+      - 443:443
