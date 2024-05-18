@@ -1,0 +1,31 @@
+<div class="card" style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 100px">
+  <div class="card-header" style="background-color: red; color: white">
+    Justyna & Norbert
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Wprowadź kod, który umożliwi odwiedzenie strony</h5>
+    <div class="col-md-12 mt-2">
+      <p class="text-center" style="font-size: 25px; font-weight: 700">Kod</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div style="width: 100%;">
+          <div style="margin-left: auto; margin-right: auto; width: 300px; display: block">
+            <input id="code" formControlName="code" class="radius-10" style="width: 100%" type="text" [ngClass]="{'check-errors' : error}">
+            <small
+              *ngIf="error"
+              class="text-danger">{{ error }} <br/></small>
+            <span
+              *ngIf="loginForm.controls['code'].invalid && loginForm.controls['code'].touched">
+            <small
+              *ngIf="loginForm.controls['code'].errors"
+              class="text-danger">Musisz wprowadzić kod</small>
+          </span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-danger" style="margin-left: auto; margin-right: auto; display: block; margin-top: 10px">Potwierdź</button>
+      </form>
+
+
+    </div>
+  </div>
+</div>
