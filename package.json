@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host=0.0.0.0 --disable-host-check --configuration=development",
     "build": "ng build",
     "build:production": "ng build --prod --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production",
     "watch": "ng build --watch --configuration development",
@@ -27,6 +27,7 @@
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "ngx-bootstrap": "^12.0.0",
+    "ngx-cookie-service": "^17.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

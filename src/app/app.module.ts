@@ -7,11 +7,13 @@ import {BookComponent} from './book/book.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CodeComponent} from './code/code.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent
+    BookComponent,
+    CodeComponent
   ],
   imports: [
     BrowserModule,
