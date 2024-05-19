@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" style="color: black; cursor: pointer" aria-current="page">Stoliki</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/book" style="color: black; cursor: pointer">Księga gości</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10">
+      <form class="example-form">
+        <h4>Wybierz z listy, aby poznać informacje o swoim stoliku</h4>
+        <mat-form-field style="width: 100%">
+          <mat-label>Goście</mat-label>
+          <input style="width: 100%" type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            @for (option of filteredOptions | async; track option) {
+              <mat-option (click)="showInfo(option.tableId)" [value]="option.fullname">{{ option.fullname }}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
+      <div *ngIf="info">
+        <h2>Numer stolika: <span style="color: #006b3b">{{ tableId }}</span></h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Imię i nazwisko</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let guest of tables">
+            <td>{{ guest.fullname }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-12 pt-5 pb-2" style="border-top: 1px solid dimgrey">
+        <img src="assets/table.svg" style="width: 100%">
+      </div>
+
+    </div>
+  </div>
+</div>
