@@ -12,7 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 function interceptAndAllowCredentialCookies(req: HttpRequest<any>, next: HttpHandlerFn) {
   const apiRequest = req.clone({
-    // withCredentials: true
+    withCredentials: true,
   });
 
   return next(apiRequest);
