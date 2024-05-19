@@ -2,7 +2,8 @@ import {HttpHandlerFn, HttpInterceptorFn, HttpRequest} from '@angular/common/htt
 import {environment} from "../../../environment";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.startsWith(`${environment.apiUrl}/api/v1/guest`)) {
+  console.log(environment.apiUrl);
+  if (req.url.startsWith(`${environment.apiUrl}/api/v1`)) {
     return interceptAndAllowCredentialCookies(req, next);
   }
 
@@ -11,10 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 function interceptAndAllowCredentialCookies(req: HttpRequest<any>, next: HttpHandlerFn) {
   const apiRequest = req.clone({
-    setHeaders: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    withCredentials: true,
+    // withCredentials: true
   });
 
   return next(apiRequest);

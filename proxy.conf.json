@@ -1,0 +1,6 @@
+{
+  "/api/v1": {
+    "target": "http://justyna-norbert-wedding.pl:8443",
+    "secure": false
+  }
+}

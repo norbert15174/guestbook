@@ -15,16 +15,3 @@ export const appGuards: CanActivateFn = (next: ActivatedRouteSnapshot, state: Ro
   router.navigate(['/book']).then(() => true);
   return false;
 }
-
-
-export const appEntryGuards: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
-  let cookieService = inject(CookieService);
-  let router = inject(Router);
-  let cookie = cookieService.get("JNW.CODE");
-  if (!cookie || cookie !== environment.code) {
-    router.navigate(['/code']).then(() => true);
-    return false;
-  }
-
-  return true;
-}

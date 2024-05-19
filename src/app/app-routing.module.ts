@@ -2,20 +2,25 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BookComponent} from "./book/book.component";
 import {CodeComponent} from "./code/code.component";
-import {appEntryGuards, appGuards} from "./app-guards";
+import {appGuards} from "./app-guards";
+import {authGuardGuard} from "./auth-guard.guard";
+import {TableComponent} from "./table/table.component";
 
 export const ROUTES: Routes = [
   {
-    canActivate: [appEntryGuards],
-    path: 'book',
-    component: BookComponent,
-    pathMatch: 'full'
-  },
-  {
-    canActivate: [appGuards],
     path: 'code',
     component: CodeComponent,
-    pathMatch: 'full'
+    canActivate: [appGuards]
+  },
+  {
+    path: 'book',
+    component: BookComponent,
+    canActivate: [authGuardGuard]
+  },
+  {
+    path: 'table',
+    component: TableComponent,
+    canActivate: [authGuardGuard]
   },
   {
     path: '**',
