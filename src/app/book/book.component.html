@@ -1,59 +1,71 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <ul class="nav nav-tabs justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/table" style="color: black; cursor: pointer" aria-current="page">Stoliki</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" style="color: black; cursor: pointer">Księga gości</a>
-                </li>
-            </ul>
-        </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/table" style="color: black; cursor: pointer" aria-current="page">Stoliki</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" style="color: black; cursor: pointer">Księga gości</a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
 <div class="container">
-    <div class="row p-2">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 justify-content-center p-2">
+  <div class="row p-2">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 justify-content-center p-2">
       <div class="col-md-12 text-center">
-          <h1 class="main-font">Księga gości</h1>
+        <h1 class="main-font">Księga gości</h1>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="submit()">
         <div class="col-md-12 mt-2">
-            <mat-form-field style="width: 100%; border-color: green !important;">
-                <mat-label>Od</mat-label>
-                <input matInput placeholder="Imiona i nazwiska" style="border-color: green !important;">
-            </mat-form-field>
+          <mat-form-field style="width: 100%; border-color: green !important;">
+            <mat-label>Od</mat-label>
+            <input maxlength="255" formControlName="from" matInput placeholder="Imiona i nazwiska" style="border-color: green !important;">
+            <span
+              *ngIf="loginForm.controls['from'].invalid && loginForm.controls['from'].touched">
+            <small
+              *ngIf="loginForm.controls['from'].errors"
+              class="text-danger">Pole nie może być puste</small>
+          </span>
+          </mat-form-field>
         </div>
         <div class="col-md-12 text-center mt-2">
           <div style="display: grid; grid-template-columns: auto auto auto;">
-              <div (click)="changeSelectedItem('PHOTO')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'PHOTO'}">
+            <div (click)="changeSelectedItem('PHOTO')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'PHOTO'}">
               zdjęcia
             </div>
-              <div (click)="changeSelectedItem('MESSAGE')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'MESSAGE'}">
+            <div (click)="changeSelectedItem('MESSAGE')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'MESSAGE'}">
               życzenia
             </div>
-              <div (click)="changeSelectedItem('PHOTO_AND_MESSAGE')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'PHOTO_AND_MESSAGE'}">
+            <div (click)="changeSelectedItem('PHOTO_AND_MESSAGE')" class="text-center p-2 select-input" [ngClass]="{'active-button': selectedItem === 'PHOTO_AND_MESSAGE'}">
               zdjęcia z życzeniami
             </div>
 
           </div>
         </div>
         <div *ngIf="selectedItem === 'MESSAGE' || selectedItem === 'PHOTO_AND_MESSAGE'" class="col-md-12 mt-2">
-            <mat-form-field style="width: 100%">
-                <mat-label>Życzenia</mat-label>
-                <textarea matInput placeholder="Wprowadź życzenia" style="min-height: 100px;"></textarea>
-            </mat-form-field>
+          <mat-form-field style="width: 100%">
+            <mat-label>Życzenia</mat-label>
+            <textarea formControlName="message" matInput placeholder="Wprowadź życzenia" style="min-height: 100px;"></textarea>
+            <span
+              *ngIf="loginForm.controls['message'].invalid && loginForm.controls['message'].touched">
+            <small
+              *ngIf="loginForm.controls['message'].errors"
+              class="text-danger">Życzenia nie mogą przekroczyć 5000 znaków</small>
+          </span>
+          </mat-form-field>
         </div>
         <div *ngIf="selectedItem === 'PHOTO' || selectedItem === 'PHOTO_AND_MESSAGE'" class="col-md-12 mt-2" style="position: relative">
           <label for="file-upload" class="custom-file-upload">
             <div style="position: absolute; left: calc(50% - 25px); top: calc(50% - 25px)">
               <img style="width: 50px;"
                    src="https://static.vecteezy.com/system/resources/thumbnails/014/638/927/small_2x/drag-and-drop-to-cloud-upload-online-backup-concept-icon-in-line-style-design-isolated-on-white-background-editable-stroke-free-vector.jpg"/>
-                <p class="main-font" style="position: absolute; width: 150px; text-align: center; color: #006b3b; left: -50px; font-weight: 600">Dodaj zdjęcia</p>
+              <p class="main-font" style="position: absolute; width: 150px; text-align: center; color: #006b3b; left: -50px; font-weight: 600">Dodaj zdjęcia</p>
             </div>
             <input (change)="onFileSelected($event)" class="radius-10" id="file-upload" type="file" multiple/>
           </label>
@@ -71,7 +83,7 @@
           </div>
         </div>
         <div class="col-md-12 text-center mt-2">
-            <button type="submit" class="btn btn-success" style="width: 100px;">Dodaj</button>
+          <button type="submit" class="btn btn-success" style="width: 100px;">Dodaj</button>
         </div>
       </form>
     </div>

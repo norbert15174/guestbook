@@ -11,9 +11,6 @@
         <div style="width: 100%;">
           <div style="margin-left: auto; margin-right: auto; width: 300px; display: block">
             <input id="code" formControlName="code" class="radius-10" style="width: 100%" type="text" [ngClass]="{'check-errors' : error}">
-            <small
-              *ngIf="error"
-              class="text-danger">{{ error }} <br/></small>
             <span
               *ngIf="loginForm.controls['code'].invalid && loginForm.controls['code'].touched">
             <small
