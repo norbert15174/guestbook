@@ -71,12 +71,11 @@
           </label>
         </div>
         <div>
-          <div (click)="removeAll()" *ngIf="imageUrls && imageUrls.length" style="cursor: pointer; color: red">Usuń wszystkie</div>
-          <div *ngIf="imageUrls && imageUrls.length" style="display: grid; grid-template-columns: 20% 20% 20% 20% 20%; width: 100%">
-            <div *ngFor="let imageUrl of imageUrls" class="p-2" style="background: #d2d2d2; border: 2px solid white; border-radius: 10px">
-              <div>
-                <span (click)="removeUrl(imageUrl)" class="material-symbols-outlined" style="position: relative; left: calc(100% - 20px)">close
-</span>
+          <div *ngIf="imageUrls && imageUrls.length" class="container">
+            <div (click)="removeAll()" *ngIf="imageUrls && imageUrls.length" style="cursor: pointer; color: red">Usuń wszystkie</div>
+            <div class="row">
+              <div class="col-4 col-xs-4 col-sm-4 col-xxl-2 col-lg-3 col-md-4 my-1 img-thumbnail" *ngFor="let imageUrl of imageUrls">
+                <span (click)="removeUrl(imageUrl)" class="material-symbols-outlined" style="position: relative; left: calc(100% - 20px); cursor: pointer; color: red">close</span>
                 <img [src]="imageUrl" alt="Podgląd pliku" style="width: 100%">
               </div>
             </div>

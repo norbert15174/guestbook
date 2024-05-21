@@ -28,6 +28,13 @@
   background: #006b3b !important;
 }
 
+.grid-images {
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  @media (max-width: 800px) {
+    grid-template-columns: 20% 20% 20%;
+  }
+}
+
 .custom-file-upload {
   border: 2px solid #ccc;
   display: inline-block;

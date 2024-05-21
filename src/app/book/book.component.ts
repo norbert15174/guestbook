@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BookService} from "./book.service";
 import {SpinnerService} from "../spinner/spinner.service";
+import {Book} from "./book";
 
 @Component({
   selector: 'app-book',
@@ -14,7 +15,7 @@ export class BookComponent implements OnInit {
   imageUrls: string[] = [];
   selectedItem!: string;
   selectedFiles!: FileList;
-  loginForm!: FormGroup;
+  loginForm!: FormGroup<Book>;
   files: File[] = [];
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private bookService: BookService, private spinnerService: SpinnerService) {
@@ -23,8 +24,8 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      from: ['', Validators.required],
-      message: ['', Validators.maxLength(5000)]
+      from: this.formBuilder.nonNullable.control('', {validators: [Validators.required]}),
+      message: this.formBuilder.nonNullable.control(''),
     });
   }
 
@@ -66,27 +67,38 @@ export class BookComponent implements OnInit {
   submit() {
     this.spinnerService.show();
     if (this.loginForm?.valid) {
-      // if (this.selectedFiles.length < 1) {
-      //   return;
-      // }
-      //
-      // for (let i = 0; i < this.selectedFiles.length; i++) {
-      //   this.files.push(this.selectedFiles[i]);
-      // }
-      //
-      // const formData = new FormData();
-      // this.files.forEach(file => {
-      //   formData.append('files', file, file.name);
-      // });
-      //
-      // let headers = new Headers();
-      // headers.append('Content-Type', 'multipart/form-data');
-      // headers.append('Accept', 'application/json');
-      // this.bookService.sendFiles(formData);
-
+      this.bookService.createBook(this.loginForm.getRawValue())
+        .subscribe(data => {
+            this.uploadFiles(data.uuid);
+          }
+        )
     } else {
       this.loginForm.markAllAsTouched();
     }
 
+  }
+
+  private uploadFiles(uuid: string) {
+    if (!this.selectedFiles || this.selectedFiles.length < 1) {
+      this.spinnerService.hide();
+      return
+    }
+
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.files.push(this.selectedFiles[i]);
+    }
+
+    const formData = new FormData();
+    this.files.forEach(file => {
+      formData.append('files', file, file.name);
+    });
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    this.bookService.sendFiles(formData, uuid).subscribe(data => {
+        this.spinnerService.hide();
+      }
+    );
   }
 }

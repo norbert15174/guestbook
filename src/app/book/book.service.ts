@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environment";
+import {BookRequest, BookResponse} from "./book";
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,12 @@ export class BookService {
   constructor(private http: HttpClient) {
   }
 
-  sendFiles(formData: FormData) {
-    this.http.post<any>(`${environment.apiUrl}/api/v1/guest/1/files`, formData).subscribe(
-      (response) => {
-        console.log('Pliki zostały wysłane pomyślnie.', response);
-      },
-      (error) => {
-        console.error('Wystąpił błąd podczas wysyłania plików.', error);
-      }
-    );
+  sendFiles(formData: FormData, uuid: string) {
+    return this.http.post<any>(`${environment.apiUrl}/api/v1/guest/${uuid}/files`, formData);
+  }
+
+  createBook(book: BookRequest) {
+    return this.http.post<BookResponse>(`${environment.apiUrl}/api/v1/book`, book);
   }
 
 }
