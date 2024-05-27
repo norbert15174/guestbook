@@ -16,6 +16,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatToolbar} from "@angular/material/toolbar";
 import {authInterceptor} from "./interceptors/auth.interceptor";
 import {SpinnerComponent} from "./spinner/spinner.component";
+import {provideToastr} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {SpinnerComponent} from "./spinner/spinner.component";
     provideAnimationsAsync(),
     importProvidersFrom(HttpClientModule),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideToastr()
   ],
   bootstrap: [AppComponent]
 })

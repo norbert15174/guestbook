@@ -40,7 +40,7 @@ $npp-frontend-theme: mat.define-light-theme((
 @import 'bootstrap/scss/bootstrap';
 
 html, body {
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {

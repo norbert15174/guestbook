@@ -21,17 +21,14 @@
         <h1 class="main-font">Księga gości</h1>
       </div>
 
-      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <form [formGroup]="currentForm" (ngSubmit)="submit(formDirective)" #formDirective="ngForm">
         <div class="col-md-12 mt-2">
           <mat-form-field style="width: 100%; border-color: green !important;">
             <mat-label>Od</mat-label>
             <input maxlength="255" formControlName="from" matInput placeholder="Imiona i nazwiska" style="border-color: green !important;">
-            <span
-              *ngIf="loginForm.controls['from'].invalid && loginForm.controls['from'].touched">
-            <small
-              *ngIf="loginForm.controls['from'].errors"
-              class="text-danger">Pole nie może być puste</small>
-          </span>
+            <mat-error *ngIf="currentForm.controls['from'].invalid && currentForm.controls['from'].touched && currentForm.controls['from'].errors">
+              Pole nie może być puste
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-md-12 text-center mt-2">
@@ -51,28 +48,30 @@
         <div *ngIf="selectedItem === 'MESSAGE' || selectedItem === 'PHOTO_AND_MESSAGE'" class="col-md-12 mt-2">
           <mat-form-field style="width: 100%">
             <mat-label>Życzenia</mat-label>
-            <textarea formControlName="message" matInput placeholder="Wprowadź życzenia" style="min-height: 100px;"></textarea>
-            <span
-              *ngIf="loginForm.controls['message'].invalid && loginForm.controls['message'].touched">
-            <small
-              *ngIf="loginForm.controls['message'].errors"
-              class="text-danger">Życzenia nie mogą przekroczyć 5000 znaków</small>
-          </span>
+            <textarea formControlName="message" matInput placeholder="Wprowadź życzenia" style="min-height: 90px;"></textarea>
+            <mat-error *ngIf="currentForm.controls['message'].invalid && currentForm.controls['message'].touched && currentForm.controls['message'].errors">
+              Życzenia nie mogą przekroczyć 5000 znaków
+            </mat-error>
           </mat-form-field>
         </div>
-        <div *ngIf="selectedItem === 'PHOTO' || selectedItem === 'PHOTO_AND_MESSAGE'" class="col-md-12 mt-2" style="position: relative">
-          <label for="file-upload" class="custom-file-upload">
-            <div style="position: absolute; left: calc(50% - 25px); top: calc(50% - 25px)">
-              <img style="width: 50px;"
-                   src="https://static.vecteezy.com/system/resources/thumbnails/014/638/927/small_2x/drag-and-drop-to-cloud-upload-online-backup-concept-icon-in-line-style-design-isolated-on-white-background-editable-stroke-free-vector.jpg"/>
-              <p class="main-font" style="position: absolute; width: 150px; text-align: center; color: #006b3b; left: -50px; font-weight: 600">Dodaj zdjęcia</p>
-            </div>
-            <input (change)="onFileSelected($event)" class="radius-10" id="file-upload" type="file" multiple/>
-          </label>
+        <div>
+          <div *ngIf="selectedItem === 'PHOTO' || selectedItem === 'PHOTO_AND_MESSAGE'" class="col-md-12 mt-2" style="position: relative">
+            <label for="file-upload" class="custom-file-upload">
+              <div style="position: absolute; left: calc(50% - 25px); top: calc(50% - 35px)">
+                <img style="width: 50px;"
+                     src="https://static.vecteezy.com/system/resources/thumbnails/014/638/927/small_2x/drag-and-drop-to-cloud-upload-online-backup-concept-icon-in-line-style-design-isolated-on-white-background-editable-stroke-free-vector.jpg"/>
+                <p class="main-font" style="position: absolute; width: 150px; text-align: center; color: #006b3b; left: -50px; font-weight: 600">Dodaj zdjęcia</p>
+              </div>
+              <input (change)="onFileSelected($event)" class="radius-10" id="file-upload" accept="image/*" type="file" multiple/>
+            </label>
+          </div>
+          <mat-error *ngIf="showImageError">
+            Pliki nie mogą przekroczyć 50MB
+          </mat-error>
         </div>
         <div>
+          <div class="btn btn-danger" (click)="removeAll()" *ngIf="imageUrls && imageUrls.length">Usuń wszystkie</div>
           <div *ngIf="imageUrls && imageUrls.length" class="container">
-            <div (click)="removeAll()" *ngIf="imageUrls && imageUrls.length" style="cursor: pointer; color: red">Usuń wszystkie</div>
             <div class="row">
               <div class="col-4 col-xs-4 col-sm-4 col-xxl-2 col-lg-3 col-md-4 my-1 img-thumbnail" *ngFor="let imageUrl of imageUrls">
                 <span (click)="removeUrl(imageUrl)" class="material-symbols-outlined" style="position: relative; left: calc(100% - 20px); cursor: pointer; color: red">close</span>
