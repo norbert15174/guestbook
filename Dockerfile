@@ -2,7 +2,7 @@ FROM node:18.18-slim AS builder
 
 WORKDIR /builder
 COPY package.json .
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@16.2.14
 RUN npm install
 
 COPY . .
